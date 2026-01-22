@@ -12,6 +12,26 @@ const { title } = Astro.props;
         <link rel="manifest" href="/manifest.json">
         
         <meta name="theme-color" content="#5a3b36">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="apple-mobile-web-app-title" content="ධම්ම පදය" />
+		<meta name="description" content="ඩිජිටල් ධම්ම පදය සහ පිරිත් පොත" />
+		<meta name="theme-color" content="#6d4a43" />
+        
+        <script>
+            import { registerSW } from 'virtual:pwa-register';
+            registerSW({
+                immediate: true,
+                onNeedRefresh() {
+                    // අලුත් update එකක් ආවම ඉබේම refresh වෙන්න
+                    console.log('New content available, refreshing...');
+                },
+                onOfflineReady() {
+                    console.log('App is ready to work offline');
+                },
+            });
+        </script>
+
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
