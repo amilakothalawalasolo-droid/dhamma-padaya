@@ -1,0 +1,52 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+// Data Files Import
+import anapanaData from '../../data/anapana.json';
+import maithreeData from '../../data/maithree.json';
+import buddhanussathiData from '../../data/buddhanussathi.json';
+
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'anapana' }, props: { title: 'ආනාපානසති භාවනාව', data: anapanaData } },
+    { params: { slug: 'maithree' }, props: { title: 'මෛත්‍රී භාවනාව', data: maithreeData } },
+    { params: { slug: 'buddhanussathi' }, props: { title: 'බුද්ධානුස්සති භාවනාව', data: buddhanussathiData } },
+  ];
+}
+
+const { title, data } = Astro.props;
+---
+
+<MainLayout title={title}>
+    
+    <div class="flex items-center gap-4 mb-6 mt-2 sticky top-20 z-10 bg-chocolate-50/90 backdrop-blur-sm p-2 rounded-xl">
+        <a href="/bawana" class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm text-gray-500 hover:text-chocolate-600">
+            ❮
+        </a>
+        <h1 class="text-lg font-bold text-chocolate-900">{title}</h1>
+    </div>
+
+    <div class="space-y-6 pb-10">
+        <div class="relative border-l-2 border-chocolate-200 ml-3 pl-8 space-y-8">
+            {data ? data.map((step, index) => (
+                <div class="relative">
+                    <span class="absolute -left-[41px] flex items-center justify-center w-8 h-8 bg-chocolate-100 rounded-full ring-4 ring-chocolate-50 font-bold text-chocolate-700 text-sm">
+                        {index + 1}
+                    </span>
+                    
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-chocolate-50">
+                        <h3 class="font-bold text-chocolate-800 mb-2">{step.step}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                            {step.content}
+                        </p>
+                    </div>
+                </div>
+            )) : (
+                <div class="text-center p-10 text-gray-500">
+                    සකසමින් පවතී...
+                </div>
+            )}
+        </div>
+    </div>
+
+</MainLayout>

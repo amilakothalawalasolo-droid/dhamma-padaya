@@ -1,0 +1,77 @@
+---
+// src/layouts/MainLayout.astro
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="si">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>{title}</title>
+        <link rel="manifest" href="/manifest.json">
+        
+        <meta name="theme-color" content="#5a3b36">
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+	</head>
+	
+    <body class="bg-chocolate-50 text-gray-900 min-h-screen font-sinhala pb-24">
+        
+        <header class="fixed top-0 w-full bg-chocolate-800 text-white shadow-md z-50">
+            <div class="max-w-md mx-auto h-16 flex items-center justify-between px-4">
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide">ධම්ම පදය</h1>
+                    <p class="text-xs text-chocolate-100 opacity-80">ඩිජිටල් පුස්තකාලය</p>
+                </div>
+                <button id="search-btn" class="bg-chocolate-700 p-2 rounded-full hover:bg-chocolate-600 transition">
+                    🔍
+                </button>
+            </div>
+        </header>
+
+	<script>
+  	  const searchBtn = document.getElementById('search-btn');
+   		 if (searchBtn) {
+       			 searchBtn.addEventListener('click', () => {
+        		 alert('සෙවුම් පහසුකම ළඟදීම බලාපොරොත්තු වන්න! \n\nSearch feature coming soon.');
+   		     });
+  		  }
+	</script>
+
+        <main class="max-w-md mx-auto px-4 pt-20">
+		    <slot />
+        </main>
+
+  <nav class="fixed bottom-0 w-full bg-white border-t border-chocolate-100 z-50 pb-safe shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+    <div class="max-w-md mx-auto grid grid-cols-3 py-3">
+        <a href="/" class="flex flex-col items-center gap-1 text-gray-400 hover:text-chocolate-600 transition">
+            <span class="text-2xl">🏠</span>
+            <span class="text-[10px] font-medium">මුල් පිටුව</span>
+        </a>
+
+        <a href="/sutta" class="flex flex-col items-center gap-1 text-gray-400 hover:text-chocolate-600 transition">
+            <span class="text-2xl">📖</span>
+            <span class="text-[10px] font-medium">සූත්‍ර</span>
+        </a>
+
+        <a href="/gatha" class="flex flex-col items-center gap-1 text-chocolate-700">
+            <span class="text-2xl">☸️</span>
+            <span class="text-[10px] font-bold">ධම්ම පදය</span>
+        </a>
+    </div>
+  </nav>
+	</body>
+</html>
+
+<style is:global>
+    .font-sinhala {
+        font-family: 'Noto Sans Sinhala', sans-serif;
+    }
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+</style>

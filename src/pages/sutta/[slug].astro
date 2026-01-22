@@ -1,0 +1,67 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import suttaList from '../../data/sutta_list.json';
+
+// Data Files Import
+import mangalaData from '../../data/mangala.json';
+import rathanaData from '../../data/rathana.json'; 
+import mettaData from '../../data/metta.json';     
+import angulimalaData from '../../data/angulimala.json'; 
+import bojjhangaData from '../../data/bojjhanga.json';  
+import moraData from '../../data/mora.json';            
+import jayamangalaData from '../../data/jayamangala.json'; 
+
+// පස්සේ අනිත් ඒවා ආවම මෙතනට දාන්න පුළුවන් (rathana, metta...)
+
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'mangala' }, props: { title: 'මහා මංගල සූත්‍රය', data: mangalaData } },
+    { params: { slug: 'rathana' }, props: { title: 'රතන සූත්‍රය', data: rathanaData } },
+    { params: { slug: 'metta' }, props: { title: 'කරණීය මෙත්ත සූත්‍රය', data: mettaData } },
+    { params: { slug: 'angulimala' }, props: { title: 'අංගුලිමාල පිරිත', data: angulimalaData } },
+    { params: { slug: 'bojjhanga' }, props: { title: 'බොජ්ඣංග පිරිත', data: bojjhangaData } },
+    { params: { slug: 'mora' }, props: { title: 'මෝර පිරිත', data: moraData } },
+    { params: { slug: 'jayamangala' }, props: { title: 'ජය මංගල ගාථා', data: jayamangalaData } },
+    // අනිත් ඒවා හැදුවම මෙතනට දාන්න
+  ];
+}
+
+const { title, data } = Astro.props;
+---
+
+<MainLayout title={title}>
+    
+    <div class="flex items-center gap-4 mb-6 mt-2 sticky top-20 z-10 bg-chocolate-50/90 backdrop-blur-sm p-2 rounded-xl">
+        <a href="/sutta" class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm text-gray-500 hover:text-chocolate-600">
+            ❮
+        </a>
+        <h1 class="text-lg font-bold text-chocolate-900">{title}</h1>
+    </div>
+
+    <div class="space-y-6 pb-10">
+        {data ? data.map((gatha, index) => (
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-chocolate-50">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-[10px] font-bold bg-chocolate-100 text-chocolate-800 px-2 py-0.5 rounded-full">
+                        {index + 1}
+                    </span>
+                </div>
+                
+                <p class="font-serif text-lg text-gray-800 leading-loose mb-4">
+                    {gatha.pali}
+                </p>
+                
+                <div class="border-t border-gray-100 pt-3">
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        {gatha.sinhala}
+                    </p>
+                </div>
+            </div>
+        )) : (
+            <div class="text-center p-10 text-gray-500">
+                Coming Soon...
+            </div>
+        )}
+    </div>
+
+</MainLayout>

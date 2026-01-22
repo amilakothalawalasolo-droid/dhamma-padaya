@@ -1,0 +1,62 @@
+---
+// src/components/GathaCard.astro
+const { id, pali, sinhala, story, storyContent } = Astro.props;
+const fullStory = storyContent || "මේ සඳහා නිදාන කතාව ඇතුළත් කර නොමැත.";
+---
+
+<div class="gatha-card bg-white rounded-2xl shadow-sm border border-chocolate-100 overflow-hidden mb-6 transition-all duration-300 hover:shadow-md">
+    
+    <div class="bg-chocolate-50 px-5 py-2 border-b border-chocolate-100 flex justify-between items-center">
+        <span class="text-chocolate-800 font-bold text-xs uppercase tracking-wider">ගාථා අංක</span>
+        <span class="bg-chocolate-200 text-chocolate-900 text-xs px-2 py-0.5 rounded-full font-bold">#{id}</span>
+    </div>
+
+    <div class="p-6 text-center space-y-4">
+        <div class="font-serif text-lg font-bold text-gray-800 leading-loose">
+            {pali.split('\n').map((line) => (
+                <p>{line}</p>
+            ))}
+        </div>
+
+        <div class="w-16 h-1 bg-chocolate-200 rounded-full mx-auto"></div>
+
+        <p class="text-gray-600 leading-relaxed text-sm">
+            {sinhala}
+        </p>
+    </div>
+
+    <div class="story-content hidden bg-stone-50 border-t border-stone-100 p-5 text-left">
+        <h4 class="font-bold text-chocolate-800 text-sm mb-2">📜 {story}</h4>
+        <p class="text-gray-600 text-sm leading-relaxed text-justify">
+            {fullStory}
+        </p>
+    </div>
+
+    <div class="bg-gray-50 px-4 py-3 border-t border-gray-100 flex justify-center items-center">
+        <button class="toggle-story-btn text-stone-500 hover:text-chocolate-700 text-xs font-bold flex items-center gap-2 transition-colors px-4 py-1.5 rounded-full border border-stone-200 hover:bg-white hover:border-chocolate-200">
+            <span>📖</span> 
+            <span class="btn-text">කතාව කියවන්න</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    const cards = document.querySelectorAll('.gatha-card');
+    cards.forEach(card => {
+        const btn = card.querySelector('.toggle-story-btn');
+        const content = card.querySelector('.story-content');
+        const btnText = card.querySelector('.btn-text');
+        if (btn && content && btnText) {
+            btn.addEventListener('click', () => {
+                content.classList.toggle('hidden');
+                if (content.classList.contains('hidden')) {
+                    btnText.textContent = "කතාව කියවන්න";
+                    btn.classList.remove('text-chocolate-800', 'bg-chocolate-50', 'border-chocolate-200');
+                } else {
+                    btnText.textContent = "කතාව වසන්න";
+                    btn.classList.add('text-chocolate-800', 'bg-chocolate-50', 'border-chocolate-200');
+                }
+            });
+        }
+    });
+</script>

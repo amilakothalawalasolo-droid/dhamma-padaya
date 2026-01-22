@@ -1,0 +1,97 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import GathaCard from '../../components/GathaCard.astro';
+import chapters from '../../data/chapters.json';
+
+// 1. Data Import (අපි කලින් හදපු .json එක මෙතනට import කරගන්න ඕනේ)
+import yamakaData from '../../data/yamaka.json';
+import appamadaData from '../../data/appamada.json';
+import chittaData from '../../data/chitta.json';
+import pupphaData from '../../data/puppha.json'; // 
+import balaData from '../../data/bala.json';     // 
+import pandithaData from '../../data/panditha.json'; // 
+import arahantaData from '../../data/arahanta.json';
+import sahassaData from '../../data/sahassa.json';
+import papaData from '../../data/papa.json';
+import dandaData from '../../data/danda.json';
+import jaraData from '../../data/jara.json';
+import aththaData from '../../data/aththa.json';
+import lokaData from '../../data/loka.json';
+import buddhaData from '../../data/buddha.json';
+import sukhaData from '../../data/sukha.json';
+import piyaData from '../../data/piya.json';
+import kodaData from '../../data/koda.json';
+import malaData from '../../data/mala.json';
+import dhammatthaData from '../../data/dhammattha.json';
+import maggData from '../../data/magg.json';
+import pakinnakaData from '../../data/pakinnaka.json';
+import nirayaData from '../../data/niraya.json';
+import nagaData from '../../data/naga.json';
+import tanhaData from '../../data/tanha.json';
+import bhikkuData from '../../data/bhikku.json';
+import brahmanaData from '../../data/brahmana.json';
+
+
+// 2. Dynamic Paths 
+export async function getStaticPaths() {
+  return [
+    { params: { slug: 'yamaka' }, props: { name: 'යමක වග්ගය', data: yamakaData } },
+    { params: { slug: 'appamada' }, props: { name: 'අප්පමාද වග්ගය', data: appamadaData } },
+    { params: { slug: 'chitta' }, props: { name: 'චිත්ත වග්ගය', data: chittaData } },
+    { params: { slug: 'puppha' }, props: { name: 'පුප්ඵ වග්ගය', data: pupphaData } },
+    { params: { slug: 'bala' }, props: { name: 'බාල වග්ගය', data: balaData } },
+    { params: { slug: 'panditha' }, props: { name: 'පණ්ඩිත වග්ගය', data: pandithaData } },
+    { params: { slug: 'arahanth' }, props: { name: 'අරහන්ත වග්ගය', data: arahantaData } },
+    { params: { slug: 'sahassa' }, props: { name: 'සහස්ස වග්ගය', data: sahassaData } },
+    { params: { slug: 'papa' }, props: { name: 'පාප වග්ගය', data: papaData } },
+    { params: { slug: 'danda' }, props: { name: 'දණ්ඩ වග්ගය', data: dandaData } },
+    { params: { slug: 'jara' }, props: { name: 'ජරා වග්ගය', data: jaraData } },
+    { params: { slug: 'aththa' }, props: { name: 'අත්ත වග්ගය', data: aththaData } },
+    { params: { slug: 'loka' }, props: { name: 'ලෝක වග්ගය', data: lokaData } },
+    { params: { slug: 'buddha' }, props: { name: 'බුද්ධ වග්ගය', data: buddhaData } },
+    { params: { slug: 'sukha' }, props: { name: 'සුඛ වග්ගය', data: sukhaData } },
+    { params: { slug: 'piya' }, props: { name: 'පිය වග්ගය', data: piyaData } },
+    { params: { slug: 'koda' }, props: { name: 'කෝධ වග්ගය', data: kodaData } },
+    { params: { slug: 'mala' }, props: { name: 'මල වග්ගය', data: malaData } },
+    { params: { slug: 'dhammattha' }, props: { name: 'ධම්මට්ඨ වග්ගය', data: dhammatthaData } },
+    { params: { slug: 'magg' }, props: { name: 'මග්ග වග්ගය', data: maggData } },
+    { params: { slug: 'pakinnaka' }, props: { name: 'පකිණ්ණක වග්ගය', data: pakinnakaData } },
+    { params: { slug: 'niraya' }, props: { name: 'නිරය වග්ගය', data: nirayaData } },
+    { params: { slug: 'naga' }, props: { name: 'නාග වග්ගය', data: nagaData } },
+    { params: { slug: 'tanha' }, props: { name: 'තණ්හා වග්ගය', data: tanhaData } },
+    { params: { slug: 'bhikku' }, props: { name: 'භික්ඛු වග්ගය', data: bhikkuData } },
+    { params: { slug: 'brahmana' }, props: { name: 'බ්‍රාහ්මණ වග්ගය', data: brahmanaData } },
+  ];
+}
+
+const { slug } = Astro.params;
+const { name, data } = Astro.props;
+---
+
+<MainLayout title={`ධම්ම පදය - ${name}`}>
+    
+    <div class="flex items-center gap-4 mb-6 mt-2">
+        <a href="/gatha" class="w-8 h-8 flex items-center justify-center bg-white rounded-full shadow-sm text-gray-500 hover:text-amber-600">
+            ❮
+        </a>
+        <h1 class="text-xl font-bold text-gray-800">{name}</h1>
+    </div>
+
+    <div>
+        {data ? data.map((item) => (
+            <GathaCard 
+                id={item.id}
+                pali={item.pali}
+                sinhala={item.sinhala}
+                story={item.story}
+		storyContent={item.storyContent}  
+            />
+        )) : (
+            <div class="p-8 text-center text-gray-500">
+                <p>මෙම කොටස සකසමින් පවතී...</p>
+                <p class="text-xs mt-2">Coming Soon</p>
+            </div>
+        )}
+    </div>
+
+</MainLayout>

@@ -1,0 +1,41 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import poyaDays from '../../data/poya.json';
+---
+
+<MainLayout title="පෝය දින - ධම්ම පදය">
+    
+    <div class="mb-8 mt-2 px-2 text-center">
+        <h1 class="text-2xl font-bold text-chocolate-900">පෝය දින දර්ශනය</h1>
+        <p class="text-chocolate-600 text-sm mt-1">වාර්ෂික පොහොය දින සහ ඒවායේ වැදගත්කම</p>
+    </div>
+
+    <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-chocolate-200 before:to-transparent">
+        
+        {poyaDays.map((poya, index) => (
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                
+                <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-chocolate-100 group-hover:bg-chocolate-500 transition shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 text-lg z-10">
+                    🌕
+                </div>
+                
+                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded-xl border border-chocolate-50 shadow-sm hover:shadow-md transition hover:border-chocolate-200">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold bg-chocolate-100 text-chocolate-800 px-2 py-1 rounded uppercase tracking-wider">
+                            {poya.month}
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-800 mb-1">{poya.name}</h3>
+                    <p class="text-chocolate-700 text-sm font-medium mb-2">{poya.significance}</p>
+                    <p class="text-gray-600 text-xs leading-relaxed border-t border-gray-100 pt-2">
+                        {poya.details}
+                    </p>
+                </div>
+            </div>
+        ))}
+
+    </div>
+
+    <div class="h-10"></div>
+
+</MainLayout>

@@ -1,0 +1,30 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import suttas from '../../data/sutta_list.json';
+---
+
+<MainLayout title="සූත්‍ර දේශනා">
+    
+    <div class="mb-6 mt-2 px-2 text-center">
+        <h1 class="text-2xl font-bold text-chocolate-900">සූත්‍ර පිටකය</h1>
+        <p class="text-chocolate-600 text-sm mt-1">ජීවිතයට ආශිර්වාද ගෙන දෙන දේශනා</p>
+    </div>
+
+<div class="space-y-4">
+        {suttas.map((sutta, index) => (
+            <a href={`/sutta/${sutta.id}`} class="block bg-white p-5 rounded-2xl border border-chocolate-50 shadow-sm active:scale-98 transition-transform group hover:border-chocolate-200">
+                <div class="flex items-start gap-4">
+                    
+                    <div class="w-12 h-12 bg-chocolate-50 rounded-full flex items-center justify-center text-lg font-bold font-serif text-chocolate-700 shrink-0 group-hover:bg-chocolate-100 transition border border-chocolate-100">
+                        {String(index + 1).padStart(2, '0')}
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-lg group-hover:text-chocolate-700 transition">{sutta.title}</h3>
+                        <p class="text-xs text-gray-500 mt-1 leading-relaxed">{sutta.desc}</p>
+                    </div>
+                </div>
+            </a>
+        ))}
+    </div>
+</MainLayout>

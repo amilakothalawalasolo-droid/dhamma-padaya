@@ -1,11 +1,78 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import chapters from '../data/chapters.json'; // වග්ග ලිස්ට් එකත් ඕන වෙනවා
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// --- දවසේ සිතුවිල්ල (Daily Quote Logic) ---
+const quotes = [
+    { pali: "ආරෝග්‍යා පරමා ලාභා - සන්තුට්ඨි පරමං ධනං", sinhala: "නිරෝගීකම පරම ලාභයයි. සතුට පරම ධනයයි." },
+    { pali: "නත්ථි සන්ති පරං සුඛං", sinhala: "ශාන්තියට (නිවනට) වඩා උතුම් සැපයක් නැත." },
+    { pali: "අප්පමාදෝ අමතපදං", sinhala: "ප්‍රමාද නොවීම නිවනට මගයි." },
+    { pali: "ධම්මෝ හවේ රක්ඛති ධම්මචාරී", sinhala: "ධර්මයේ හැසිරෙන අයව ධර්මය විසින්ම රකිනු ලැබේ." },
+    { pali: "සබ්බේ සත්තා භවන්තු සුඛිතත්තා", sinhala: "සියලු සත්ත්වයෝ සුවපත් වෙත්වා!" }
+];
+
+// අද දවස ගන්නවා (1-31)
+const today = new Date().getDate();
+// දවසට අනුව වෙන වෙන Quotes පෙන්වන්න (Modulus operator %)
+const dailyQuote = quotes[today % quotes.length];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<MainLayout title="ධම්ම පදය - මුල් පිටුව">
+    
+    <div class="mb-6 mt-2 px-2">
+        <h2 class="text-2xl font-bold text-chocolate-900">ආයුබෝවන්! 🙏</h2>
+        <p class="text-chocolate-600 text-sm mt-1">අද දවස ඔබට ධර්මයෙන් ආශිර්වාද වේවා.</p>
+    </div>
+
+    <div class="bg-gradient-to-br from-chocolate-600 to-chocolate-800 rounded-2xl p-6 text-white shadow-lg mb-8 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 text-9xl font-serif -mr-4 -mt-4">☸</div>
+        <span class="bg-white/20 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider">දවසේ සිතුවිල්ල</span>
+        
+        <h3 class="text-xl font-bold mt-4 leading-relaxed font-serif">
+            "{dailyQuote.pali}"
+        </h3>
+        <p class="mt-2 text-chocolate-100 text-sm opacity-90">
+            {dailyQuote.sinhala}
+        </p>
+    </div>
+
+    <h3 class="font-bold text-gray-800 mb-4 px-1 border-l-4 border-chocolate-500 pl-2">ප්‍රධාන කොටස්</h3>
+    
+    <div class="grid grid-cols-2 gap-4 pb-8">
+        
+        <a href="/gatha" class="bg-white p-4 rounded-xl shadow-sm border border-chocolate-50 active:scale-95 transition-transform flex flex-col items-center text-center group hover:border-chocolate-200">
+            <div class="w-12 h-12 bg-chocolate-100 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:bg-chocolate-200 transition text-chocolate-700">
+                ☸️
+            </div>
+            <h4 class="font-bold text-gray-800 text-sm">ධම්ම පදය</h4>
+            <p class="text-xs text-gray-400 mt-1">ගාථා 423</p>
+        </a>
+
+        <a href="/sutta" class="bg-white p-4 rounded-xl shadow-sm border border-chocolate-50 active:scale-95 transition-transform flex flex-col items-center text-center group hover:border-chocolate-200">
+            <div class="w-12 h-12 bg-chocolate-100 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:bg-chocolate-200 transition text-chocolate-700">
+                📖
+            </div>
+            <h4 class="font-bold text-gray-800 text-sm">සූත්‍ර දේශනා</h4>
+            <p class="text-xs text-gray-400 mt-1">සියලු සූත්‍ර</p>
+        </a>
+
+	<a href="/bawana" class="bg-white p-4 rounded-xl shadow-sm border border-chocolate-50 active:scale-95 transition-transform flex flex-col items-center text-center group hover:border-chocolate-200">
+            <div class="w-12 h-12 bg-chocolate-100 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:bg-chocolate-200 transition text-chocolate-700">
+                🧘‍♂️
+            </div>
+            <h4 class="font-bold text-gray-800 text-sm">භාවනා</h4>
+            <p class="text-xs text-gray-400 mt-1">සිත නිවන මග</p>
+        </a>
+
+       <a href="/poya" class="bg-white p-4 rounded-xl shadow-sm border border-chocolate-50 active:scale-95 transition-transform flex flex-col items-center text-center group hover:border-chocolate-200">
+            <div class="w-12 h-12 bg-chocolate-100 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:bg-chocolate-200 transition text-chocolate-700">
+                📅
+            </div>
+            <h4 class="font-bold text-gray-800 text-sm">පෝය දින</h4>
+            <p class="text-xs text-gray-400 mt-1">වාර්ෂික දින දර්ශනය</p>
+        </a> 
+
+	</div>
+    </div>
+
+</MainLayout>
